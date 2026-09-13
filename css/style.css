@@ -1,0 +1,82 @@
+/* 1. Set up the exact colors from your logo + pink nyana */
+:root {
+  --logo-purple: #4A154B;  /* The rich purple from Rachel's logo */
+  --logo-yellow: #FFD200;  /* The frame yellow */
+  --brand-pink: #FF4A93;   /* The bright pink accent you want */
+  --dark-navy: #1B2B3E;    /* The exact dark color of your current footer */
+}
+
+/* 2. Style your headings to match the logo */
+h1, h2, .form-title {
+  color: var(--logo-purple) !important;
+  font-family: sans-serif;
+}
+
+/* 3. Style your current text navigation menu underneath the logo */
+/* (This applies pink directly to your text links without breaking the layout) */
+nav a, .navigation-links a, header a {
+  color: var(--logo-purple);
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 10px;
+  transition: all 0.2s ease;
+}
+
+/* When you hover over a menu item, it turns pink */
+nav a:hover, .navigation-links a:hover {
+  color: var(--brand-pink);
+}
+
+/* The active page link gets a clear pink line underneath it */
+nav a.active, .navigation-links a.active {
+  color: var(--brand-pink);
+  border-bottom: 2px solid var(--brand-pink);
+}
+
+/* 4. Style the Form input boxes */
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+/* When you click into a text field to type, the border turns pink! */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border: 2px solid var(--brand-pink) !important;
+}
+
+/* 5. Style your Submit / Clear buttons at the bottom */
+input[type="submit"], button[type="submit"], .submit-btn {
+  background-color: var(--logo-purple) !important;
+  color: white !important;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+/* When you hover over the submit button, it flashes to your brand pink */
+input[type="submit"]:hover, button[type="submit"]:hover {
+  background-color: var(--brand-pink) !important;
+}
+
+/* Style the clear/reset button to be subtle */
+input[type="reset"], .clear-btn {
+  background: transparent;
+  color: #666666;
+  border: 1px solid #cccccc;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+input[type="reset"]:hover {
+  color: var(--brand-pink);
+  border-color: var(--brand-pink);
+}
