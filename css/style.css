@@ -1,82 +1,168 @@
-/* 1. Set up the exact colors from your logo + pink nyana */
+/* 1. Light, Clean Brand Palette (Pink, Yellow, and Crisp White) */
 :root {
-  --logo-purple: #4A154B;  /* The rich purple from Rachel's logo */
-  --logo-yellow: #FFD200;  /* The frame yellow */
-  --brand-pink: #FF4A93;   /* The bright pink accent you want */
-  --dark-navy: #1B2B3E;    /* The exact dark color of your current footer */
+  --bright-pink: #FF4A93;      /* The main navigation bar & button background */
+  --soft-yellow: #FFF9E6;      /* The warm, creamy yellow page background */
+  --accent-yellow: #FFD200;    /* The rich logo yellow used for bright accents */
+  --card-white: #FFFFFF;       /* Crisp white for the content boxes */
+  --text-dark: #33222B;        /* Deep berry-black text for high readability */
 }
 
-/* 2. Style your headings to match the logo */
-h1, h2, .form-title {
-  color: var(--logo-purple) !important;
-  font-family: sans-serif;
+/* 2. Global Page Setup */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* 3. Style your current text navigation menu underneath the logo */
-/* (This applies pink directly to your text links without breaking the layout) */
-nav a, .navigation-links a, header a {
-  color: var(--logo-purple);
+body {
+  background-color: var(--soft-yellow);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* 3. Centered Top Header Banner */
+.hero-header {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: var(--card-white);
+  border-bottom: 2px solid #F0E5CF;
+}
+
+/* Keeps the logo perfectly centered and round */
+.hero-header img {
+  max-height: 110px;
+  border-radius: 50%;
+  margin: 0 auto 15px auto;
+  display: block;
+  border: 3px solid var(--accent-yellow); /* Accented with logo yellow */
+}
+
+.hero-header h1 {
+  color: var(--bright-pink);
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.hero-header p {
+  color: #776670;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+/* 4. Centered Navigation Bar (Styled in Pink like the bakery layout!) */
+nav {
+  background-color: var(--bright-pink);
+  padding: 14px 0;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(255, 74, 147, 0.15);
+}
+
+nav a {
+  color: #FFFFFF;
   text-decoration: none;
-  font-weight: bold;
-  padding: 5px 10px;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 8px 24px;
+  margin: 0 4px;
+  display: inline-block;
+  transition: all 0.25s ease;
 }
 
-/* When you hover over a menu item, it turns pink */
-nav a:hover, .navigation-links a:hover {
-  color: var(--brand-pink);
+/* Hover: Changes link text to vibrant logo yellow */
+nav a:hover {
+  color: var(--accent-yellow);
 }
 
-/* The active page link gets a clear pink line underneath it */
-nav a.active, .navigation-links a.active {
-  color: var(--brand-pink);
-  border-bottom: 2px solid var(--brand-pink);
+/* Active Page Highlight: Subtle white transparent capsule backdrop */
+nav a.active {
+  color: var(--accent-yellow);
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
 }
 
-/* 4. Style the Form input boxes */
+/* 5. Main Content Card Wrapper (The clean white box style below menu) */
+main {
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: var(--card-white);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #EFEAE2;
+}
+
+main h2 {
+  color: var(--bright-pink);
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  border-bottom: 2px solid var(--soft-yellow);
+  padding-bottom: 12px;
+}
+
+/* 6. Form Fields Styling */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
 input[type="text"],
 input[type="email"],
 select,
 textarea {
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  padding: 8px;
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #EADCC9;
+  border-radius: 6px;
+  background-color: #FFFDF9;
+  font-size: 1rem;
+  color: var(--text-dark);
+  transition: all 0.2s;
 }
 
-/* When you click into a text field to type, the border turns pink! */
+/* When typing, inputs activate with a clean pink focus boundary box */
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border: 2px solid var(--brand-pink) !important;
+  border-color: var(--bright-pink);
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(255, 74, 147, 0.15);
 }
 
-/* 5. Style your Submit / Clear buttons at the bottom */
-input[type="submit"], button[type="submit"], .submit-btn {
-  background-color: var(--logo-purple) !important;
-  color: white !important;
+/* Buttons match the pink navigation bar */
+button, input[type="submit"] {
+  background-color: var(--bright-pink);
+  color: #FFFFFF;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 32px;
+  font-size: 1rem;
   font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(255, 74, 147, 0.2);
 }
 
-/* When you hover over the submit button, it flashes to your brand pink */
-input[type="submit"]:hover, button[type="submit"]:hover {
-  background-color: var(--brand-pink) !important;
+/* Hovering over the button turns it into the primary accent yellow */
+button:hover, input[type="submit"]:hover {
+  background-color: var(--accent-yellow);
+  color: var(--text-dark);
+  box-shadow: 0 4px 10px rgba(255, 210, 0, 0.3);
 }
 
-/* Style the clear/reset button to be subtle */
-input[type="reset"], .clear-btn {
-  background: transparent;
-  color: #666666;
-  border: 1px solid #cccccc;
-  padding: 8px 16px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-input[type="reset"]:hover {
-  color: var(--brand-pink);
-  border-color: var(--brand-pink);
+/* 7. Understated Footer */
+footer {
+  background-color: var(--text-dark);
+  color: #D5C7CE;
+  text-align: center;
+  padding: 24px;
+  font-size: 0.9rem;
+  margin-top: 80px;
+  border-top: 4px solid var(--accent-yellow);
 }
