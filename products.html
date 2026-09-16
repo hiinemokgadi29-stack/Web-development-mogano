@@ -4,256 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products - Rachel's Kota Place</title>
-       <link rel="  stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-    <header>
-        <h1>Rachel's Kota Place</h1>
-
-        <nav>
-            <a href="index.html">Home</a> |
-            <a href="about.html">About Us</a> |
-            <a href="products.html">Products</a> |
-            <a href="contact.html">Contact Us</a> |
+<header class="site-header">
+    <div class="header-inner">
+        <nav class="nav nav-left">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+        </nav>
+        <a class="logo-wrap" href="index.html">
+            <img class="site-logo" src="images/logo.png" alt="Rachel's Kota Place logo">
+        </a>
+        <nav class="nav nav-right">
+            <a class="active" href="products.html">Products</a>
+            <a href="contact.html">Contact Us</a>
             <a href="enquiry.html">Enquiry</a>
         </nav>
-    </header>
+    </div>
+    <div class="header-line"></div>
+</header>
 
-    <main>
+<main>
+    <section class="section yellow-section">
+        <div class="section-inner">
+            <div class="section-heading">
+                <div class="small">Our menu</div>
+                <h2>Our Kotas</h2>
+                <p>Choose your favourite.</p>
+            </div>
 
-        <h2>Our Kota Menu</h2>
+            <div class="kota-table">
+                <article class="kota-card">
+                    <img src="images/princess-kota.jpg" alt="Princess Kota">
+                    <div class="kota-name">Princess Kota</div>
+                    <p>A classic favourite, packed with flavour.</p>
+                    <span class="price">R25</span>
+                </article>
+                <article class="kota-card">
+                    <img src="images/prince-kota.jpg" alt="Prince Kota">
+                    <div class="kota-name">Prince Kota</div>
+                    <p>Bigger, bolder, more to love.</p>
+                    <span class="price">R30</span>
+                </article>
+                <article class="kota-card">
+                    <img src="images/queen-kota.jpg" alt="Queen Kota">
+                    <div class="kota-name">Queen Kota</div>
+                    <p>Loaded with extra goodness.</p>
+                    <span class="price">R35</span>
+                </article>
+                <article class="kota-card">
+                    <img src="images/king-kota.jpg" alt="King Kota">
+                    <div class="kota-name">King Kota</div>
+                    <p>For the real food lovers.</p>
+                    <span class="price">R40</span>
+                </article>
+                <article class="kota-card">
+                    <img src="images/empire-kota.jpg" alt="Empire Kota">
+                    <div class="kota-name">Empire Kota</div>
+                    <p>The ultimate kota experience.</p>
+                    <span class="price">R50</span>
+                </article>
+            </div>
 
-        <table border="1">
+            <div class="other-products">
+                <article class="other-card">
+                    <img src="images/chips.jpg" alt="Chips">
+                    <h3>Chips</h3><span class="price">R15</span>
+                </article>
+                <article class="other-card">
+                    <img src="images/drink.jpg" alt="Drinks">
+                    <h3>Drinks</h3><span class="price">R12</span>
+                </article>
+                <article class="other-card">
+                    <img src="images/milkshake.jpg" alt="Milkshake">
+                    <h3>Milkshake</h3><span class="price">R20</span>
+                </article>
+                <article class="other-card">
+                    <img src="images/ice-cream.jpg" alt="Ice Cream">
+                    <h3>Ice Cream</h3><span class="price">R18</span>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
 
-            <tr>
-                <th>Picture</th>
-                <th>Kota</th>
-                <th>Price</th>
-                <th>Ingredients</th>
-            </tr>
-
-            <tr>
-                <td>
-                    <img src="images/princess-kota.png"
-                         alt="Princess Kota"
-                         width="200">
-                </td>
-
-                <td>Princess Kota</td>
-
-                <td>R25</td>
-
-                <td>
-                    Russians, chips, cheese, sauce, lettuce and tomato.
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img src="images/prince.png"
-                         alt="Prince Kota"
-                         width="200">
-                </td>
-
-                <td>Prince Kota</td>
-
-                <td>R30</td>
-
-                <td>
-                    Russians, chips, cheese, polony, sauce,
-                    lettuce and tomato.
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img src="images/queen kota.png"
-                         alt="Queen Kota"
-                         width="200">
-                </td>
-
-                <td>Queen Kota</td>
-
-                <td>R35</td>
-
-                <td>
-                    Russians, chips, cheese, polony, Vienna,
-                    egg, sauce, lettuce and tomato.
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img src="images/prince.png"
-                         alt="King Kota"
-                         width="200">
-                </td>
-
-                <td>King Kota</td>
-
-                <td>R40</td>
-
-                <td>
-                    Russians, chips, cheese, polony, Vienna,
-                    bacon, beef patty, egg, sauce, lettuce and tomato.
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img src="images/Princess-kota.png"
-                         alt="Empire Kota"
-                         width="200">
-                </td>
-
-                <td>Empire Kota</td>
-
-                <td>Price Available</td>
-
-                <td>
-                    Russians, chips, cheese, polony, Vienna,
-                    bacon, double beef patty, egg, sauce, lettuce,
-                    tomato, onions and jalapeños.
-                </td>
-            </tr>
-
-        </table>
-
-
-        <h2>Chips</h2>
-
-        <table border="1">
-
-            <tr>
-                <th>Size</th>
-                <th>Price</th>
-            </tr>
-
-            <tr>
-                <td>Small</td>
-                <td>R25</td>
-            </tr>
-
-            <tr>
-                <td>Medium</td>
-                <td>R30</td>
-            </tr>
-
-            <tr>
-                <td>Large</td>
-                <td>R35</td>
-            </tr>
-
-            <tr>
-                <td>Extra Large</td>
-                <td>R40</td>
-            </tr>
-
-        </table>
-
-
-        <h2>Drinks</h2>
-
-        <table border="1">
-
-            <tr>
-                <th>Drink</th>
-                <th>Price</th>
-            </tr>
-
-            <tr>
-                <td>Blue Mc Fizz</td>
-                <td>R15</td>
-            </tr>
-
-            <tr>
-                <td>Passion Fruit</td>
-                <td>R15</td>
-            </tr>
-
-            <tr>
-                <td>Watermelon Mc Fizz</td>
-                <td>R15</td>
-            </tr>
-
-            <tr>
-                <td>Switch</td>
-                <td>R15</td>
-            </tr>
-
-            <tr>
-                <td>Dragon</td>
-                <td>R13</td>
-            </tr>
-
-        </table>
-
-
-        <h2>Milkshakes</h2>
-
-        <table border="1">
-
-            <tr>
-                <th>Flavour</th>
-                <th>Price</th>
-            </tr>
-
-            <tr>
-                <td>Oreo</td>
-                <td>R25</td>
-            </tr>
-
-            <tr>
-                <td>Vanilla</td>
-                <td>R25</td>
-            </tr>
-
-            <tr>
-                <td>Bubblegum</td>
-                <td>R25</td>
-            </tr>
-
-            <tr>
-                <td>Chocolate</td>
-                <td>R25</td>
-            </tr>
-
-        </table>
-
-
-        <h2>Ice Cream</h2>
-
-        <table border="1">
-
-            <tr>
-                <th>Flavour</th>
-                <th>Price</th>
-            </tr>
-
-            <tr>
-                <td>Vanilla</td>
-                <td>R10</td>
-            </tr>
-
-            <tr>
-                <td>Chocolate</td>
-                <td>R10</td>
-            </tr>
-
-            <tr>
-                <td>Polar</td>
-                <td>R15</td>
-            </tr>
-
-        </table>
-
-    </main>
-
-    <footer>
-        <p>&copy; 2026 Rachel's Kota Place. All Rights Reserved.</p>
-    </footer>
+<footer>
+    <p>&copy; 2026 Rachel's Kota Place. All Rights Reserved.</p>
+</footer>
 
 </body>
 </html>

@@ -4,73 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rachel's Kota Place - Home</title>
-       <link rel="  stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-    <header>
-        <h1>Rachel's Kota Place</h1>
+<header class="site-header">
+    <div class="header-inner">
 
+        <nav class="nav nav-left">
+            <a class="active" href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+        </nav>
 
-        <img src="images/logo.png" alt="Kota Image" 
-        width="200" height="200">
+        <a class="logo-wrap" href="index.html" aria-label="Rachel's Kota Place home">
+            <img class="site-logo" src="images/logo.png" alt="Rachel's Kota Place logo">
+        </a>
 
-        <nav>
-            <a href="index.html">Home</a> |
-            <a href="about.html">About Us</a> |
-            <a href="products.html">Products</a> |
-            <a href="contact.html">Contact Us</a> |
+        <nav class="nav nav-right">
+            <a href="products.html">Products</a>
+            <a href="contact.html">Contact Us</a>
             <a href="enquiry.html">Enquiry</a>
         </nav>
-        <hr>
-    </header>
 
-    <main>
+    </div>
+    <div class="header-line"></div>
+</header>
 
-        <section>
-            <h2>Welcome to Rachel's Kota Place</h2>
-            <img src="images/Menu.png" alt="Kota Image"
-            width="400" height="300">
+<main>
+    <section class="hero">
+        <div class="hero-copy">
+            <div class="kicker">Welcome to</div>
+            <h1>Rachel's <span>Kota Place</span></h1>
+            <p class="hero-subtitle">Delicious <strong>•</strong> Affordable <strong>•</strong> For Everyone</p>
+            <a class="btn" href="products.html">View Our Products →</a>
+        </div>
+        <div class="hero-image" role="img" aria-label="Loaded kota meal"></div>
+    </section>
 
-            <p>
-                Welcome to Rachel's Kota Place, where we serve delicious
-                and affordable kota meals made for everyone to enjoy.
-            </p>
+    <section class="section yellow-section">
+        <div class="section-inner">
+            <div class="section-heading">
+                <div class="small">Freshly made</div>
+                <h2>Our Kotas</h2>
+                <p>Big flavour. Great value. Made for everyone.</p>
+            </div>
 
-            <p>
-                Visit us and enjoy a tasty meal at an affordable price.
-            </p>
-        </section>
+            <div class="kota-table">
+                <article class="kota-card">
+                    <img src="images/princess-kota.jpg" alt="Princess Kota">
+                    <div class="kota-name">Princess Kota</div>
+                    <p>A classic favourite, packed with flavour.</p>
+                    <span class="price">R25</span>
+                </article>
 
-        <section>
-            <h2>Our Food</h2>
+                <article class="kota-card">
+                    <img src="images/prince-kota.jpg" alt="Prince Kota">
+                    <div class="kota-name">Prince Kota</div>
+                    <p>Bigger, bolder, more to love.</p>
+                    <span class="price">R30</span>
+                </article>
 
-            <p>
-                We offer a variety of kotas, chips, drinks and ice cream.
-            </p>
+                <article class="kota-card">
+                    <img src="images/queen-kota.jpg" alt="Queen Kota">
+                    <div class="kota-name">Queen Kota</div>
+                    <p>Loaded with extra goodness.</p>
+                    <span class="price">R35</span>
+                </article>
 
-            <p>
-                Our goal is to provide tasty food, friendly service and
-                value for money.
-            </p>
-        </section>
+                <article class="kota-card">
+                    <img src="images/king-kota.jpg" alt="King Kota">
+                    <div class="kota-name">King Kota</div>
+                    <p>For the real food lovers.</p>
+                    <span class="price">R40</span>
+                </article>
 
-        <section>
-            <h2>Order With Us</h2>
+                <article class="kota-card">
+                    <img src="images/empire-kota.jpg" alt="Empire Kota">
+                    <div class="kota-name">Empire Kota</div>
+                    <p>The ultimate kota experience.</p>
+                    <span class="price">R50</span>
+                </article>
+            </div>
 
-            <p>
-                Browse our products and menu to see what we have available.
-            </p>
+            <div class="other-products">
+                <article class="other-card">
+                    <img src="images/chips.jpg" alt="Chips">
+                    <h3>Chips</h3>
+                    <span class="price">R15</span>
+                </article>
 
-            <a href="products.html">View Our Products</a>
-        </section>
+                <article class="other-card">
+                    <img src="images/drink.jpg" alt="Cold drink">
+                    <h3>Drinks</h3>
+                    <span class="price">R12</span>
+                </article>
 
-    </main>
+                <article class="other-card">
+                    <img src="images/milkshake.jpg" alt="Milkshake">
+                    <h3>Milkshake</h3>
+                    <span class="price">R20</span>
+                </article>
 
-    <footer>
-        <p>&copy; 2026 Rachel's Kota Place. All Rights Reserved.</p>
-    </footer>
+                <article class="other-card">
+                    <img src="images/ice-cream.jpg" alt="Ice cream">
+                    <h3>Ice Cream</h3>
+                    <span class="price">R18</span>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section white-section">
+        <div class="section-inner">
+            <div class="info-grid">
+                <article class="info-card">
+                    <div class="info-icon">🍴</div>
+                    <h3>Our Food</h3>
+                    <p>We offer a variety of kotas, chips, drinks and ice cream. Our goal is to provide tasty food, friendly service and value for money.</p>
+                </article>
+
+                <article class="info-card">
+                    <div class="info-icon">★</div>
+                    <h3>Our Mission</h3>
+                    <p>Our mission is to provide quality and affordable food while serving our customers with care and respect.</p>
+                </article>
+
+                <article class="info-card">
+                    <div class="info-icon">♥</div>
+                    <h3>Our Vision</h3>
+                    <p>Our vision is to become a trusted local food business known for tasty food, affordable prices and excellent customer service.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Ready for a Kota?</h2>
+        <p>Browse our menu and send us your enquiry.</p>
+        <a class="btn" href="enquiry.html">Order With Us →</a>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Rachel's Kota Place. All Rights Reserved.</p>
+</footer>
 
 </body>
 </html>
