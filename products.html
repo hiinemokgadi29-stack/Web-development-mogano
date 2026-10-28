@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products - Rachel's Kota Place</title>
+    <title>Our Menu & Gallery | Rachel's Kota Place</title>
+    <meta name="description" content="Browse the full Rachel's Kota Place menu featuring Princess, Prince, Queen, King, and Empire kotas, add items to cart with custom quantities, and view our interactive gallery lightbox.">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,11 +15,12 @@
             <a href="index.html">Home</a>
             <a href="about.html">About Us</a>
         </nav>
-        <a class="logo-wrap" href="index.html">
+        <a class="logo-wrap" href="index.html" aria-label="Rachel's Kota Place home">
             <img class="site-logo" src="images/logo.png" alt="Rachel's Kota Place logo">
         </a>
         <nav class="nav nav-right">
             <a class="active" href="products.html">Products</a>
+            <a href="cart.html">Cart <span id="cartBadge" style="background:var(--pink); color:white; padding:2px 8px; border-radius:10px; font-size:0.8rem;">0</span></a>
             <a href="contact.html">Contact Us</a>
             <a href="enquiry.html">Enquiry</a>
         </nav>
@@ -30,69 +32,240 @@
     <section class="section yellow-section">
         <div class="section-inner">
             <div class="section-heading">
-                <div class="small">Our menu</div>
-                <h2>Our Kotas</h2>
-                <p>Choose your favourite.</p>
+                <div class="small">Our menu & gallery</div>
+                <h1>Explore Our Kotas & Treats</h1>
+                <p>Choose your favourite items, set quantities, add to cart, or click images to view in Lightbox.</p>
             </div>
 
-            <div class="kota-table">
-                <article class="kota-card">
-                    <img src="images/princess-kota.jpg" alt="Princess Kota">
+            <!-- Live Item Filter Bar -->
+            <div class="filter-bar">
+                <input type="text" id="searchInput" class="filter-input" placeholder="Search menu items..." onkeyup="filterItems()">
+                <button class="filter-btn active" onclick="filterCategory('all', event)">All Items</button>
+                <button class="filter-btn" onclick="filterCategory('kotas', event)">Kotas</button>
+                <button class="filter-btn" onclick="filterCategory('sides', event)">Sides & Drinks</button>
+            </div>
+
+            <div class="kota-table" id="productGrid">
+                <article class="kota-card" data-category="kotas" data-name="princess kota">
+                    <img src="images/princess-kota.jpg" alt="Princess Kota" onclick="openLightbox(this.src, 'Princess Kota — R25')">
                     <div class="kota-name">Princess Kota</div>
                     <p>A classic favourite, packed with flavour.</p>
                     <span class="price">R25</span>
+                    <div class="product-actions">
+                        <input type="number" min="1" value="1" class="qty-input" id="qty-princess">
+                        <button class="add-cart-btn" onclick="addToCart('Princess Kota', 25, 'images/princess-kota.jpg', 'qty-princess')">Add to Cart</button>
+                    </div>
                 </article>
-                <article class="kota-card">
-                    <img src="images/prince-kota.jpg" alt="Prince Kota">
+
+                <article class="kota-card" data-category="kotas" data-name="prince kota">
+                    <img src="images/prince-kota.jpg" alt="Prince Kota" onclick="openLightbox(this.src, 'Prince Kota — R30')">
                     <div class="kota-name">Prince Kota</div>
                     <p>Bigger, bolder, more to love.</p>
                     <span class="price">R30</span>
+                    <div class="product-actions">
+                        <input type="number" min="1" value="1" class="qty-input" id="qty-prince">
+                        <button class="add-cart-btn" onclick="addToCart('Prince Kota', 30, 'images/prince-kota.jpg', 'qty-prince')">Add to Cart</button>
+                    </div>
                 </article>
-                <article class="kota-card">
-                    <img src="images/queen-kota.jpg" alt="Queen Kota">
+
+                <article class="kota-card" data-category="kotas" data-name="queen kota">
+                    <img src="images/queen-kota.jpg" alt="Queen Kota" onclick="openLightbox(this.src, 'Queen Kota — R35')">
                     <div class="kota-name">Queen Kota</div>
                     <p>Loaded with extra goodness.</p>
                     <span class="price">R35</span>
+                    <div class="product-actions">
+                        <input type="number" min="1" value="1" class="qty-input" id="qty-queen">
+                        <button class="add-cart-btn" onclick="addToCart('Queen Kota', 35, 'images/queen-kota.jpg', 'qty-queen')">Add to Cart</button>
+                    </div>
                 </article>
-                <article class="kota-card">
-                    <img src="images/king-kota.jpg" alt="King Kota">
+
+                <article class="kota-card" data-category="kotas" data-name="king kota">
+                    <img src="images/king-kota.jpg" alt="King Kota" onclick="openLightbox(this.src, 'King Kota — R40')">
                     <div class="kota-name">King Kota</div>
                     <p>For the real food lovers.</p>
                     <span class="price">R40</span>
+                    <div class="product-actions">
+                        <input type="number" min="1" value="1" class="qty-input" id="qty-king">
+                        <button class="add-cart-btn" onclick="addToCart('King Kota', 40, 'images/king-kota.jpg', 'qty-king')">Add to Cart</button>
+                    </div>
                 </article>
-                <article class="kota-card">
-                    <img src="images/empire-kota.jpg" alt="Empire Kota">
+
+                <article class="kota-card" data-category="kotas" data-name="empire kota">
+                    <img src="images/empire-kota.jpg" alt="Empire Kota" onclick="openLightbox(this.src, 'Empire Kota — R50')">
                     <div class="kota-name">Empire Kota</div>
                     <p>The ultimate kota experience.</p>
                     <span class="price">R50</span>
+                    <div class="product-actions">
+                        <input type="number" min="1" value="1" class="qty-input" id="qty-empire">
+                        <button class="add-cart-btn" onclick="addToCart('Empire Kota', 50, 'images/empire-kota.jpg', 'qty-empire')">Add to Cart</button>
+                    </div>
                 </article>
             </div>
 
-            <div class="other-products">
-                <article class="other-card">
-                    <img src="images/chips.jpg" alt="Chips">
+            <div class="other-products" id="otherGrid">
+                <article class="other-card" data-category="sides" data-name="chips">
+                    <img src="images/chips.jpg" alt="Chips" onclick="openLightbox(this.src, 'Chips — R15')">
                     <h3>Chips</h3><span class="price">R15</span>
+                    <div class="product-actions">
+                        <input type="number" min="1" value="1" class="qty-input" id="qty-chips">
+                        <button class="add-cart-btn" onclick="addToCart('Chips', 15, 'images/chips.jpg', 'qty-chips')">Add to Cart</button>
+                    </div>
                 </article>
-                <article class="other-card">
-                    <img src="images/drink.jpg" alt="Drinks">
+
+                <article class="other-card" data-category="sides" data-name="drinks">
+                    <img src="images/drink.jpg" alt="Drinks" onclick="openLightbox(this.src, 'Drinks — R12')">
                     <h3>Drinks</h3><span class="price">R12</span>
+                    <div class="product-actions">
+                        <input type="number" min="1" value="1" class="qty-input" id="qty-drinks">
+                        <button class="add-cart-btn" onclick="addToCart('Drinks', 12, 'images/drink.jpg', 'qty-drinks')">Add to Cart</button>
+                    </div>
                 </article>
-                <article class="other-card">
-                    <img src="images/milkshake.jpg" alt="Milkshake">
+
+                <article class="other-card" data-category="sides" data-name="milkshake">
+                    <img src="images/milkshake.jpg" alt="Milkshake" onclick="openLightbox(this.src, 'Milkshake — R20')">
                     <h3>Milkshake</h3><span class="price">R20</span>
+                    <div class="product-actions">
+                        <input type="number" min="1" value="1" class="qty-input" id="qty-milkshake">
+                        <button class="add-cart-btn" onclick="addToCart('Milkshake', 20, 'images/milkshake.jpg', 'qty-milkshake')">Add to Cart</button>
+                    </div>
                 </article>
-                <article class="other-card">
-                    <img src="images/ice-cream.jpg" alt="Ice Cream">
+
+                <article class="other-card" data-category="sides" data-name="ice cream">
+                    <img src="images/ice-cream.jpg" alt="Ice Cream" onclick="openLightbox(this.src, 'Ice Cream — R18')">
                     <h3>Ice Cream</h3><span class="price">R18</span>
+                    <div class="product-actions">
+                        <input type="number" min="1" value="1" class="qty-input" id="qty-icecream">
+                        <button class="add-cart-btn" onclick="addToCart('Ice Cream', 18, 'images/ice-cream.jpg', 'qty-icecream')">Add to Cart</button>
+                    </div>
                 </article>
             </div>
         </div>
     </section>
 </main>
 
+<!-- Lightbox Modal Overlay -->
+<div id="lightbox" class="lightbox-overlay" onclick="closeLightbox(event)">
+    <div class="lightbox-container" onclick="event.stopPropagation()">
+        <button class="lightbox-close" onclick="closeLightboxDirect()">&times;</button>
+        <img id="lightboxImg" src="" alt="Enlarged product view">
+        <div id="lightboxCaption" class="lightbox-caption"></div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast-notification">Added to cart successfully!</div>
+
 <footer>
     <p>&copy; 2026 Rachel's Kota Place. All Rights Reserved.</p>
 </footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    updateNavBadge();
+});
+
+function getCart() {
+    return JSON.parse(localStorage.getItem('rachel_cart')) || [];
+}
+
+function saveCart(cart) {
+    localStorage.setItem('rachel_cart', JSON.stringify(cart));
+    updateNavBadge();
+}
+
+function updateNavBadge() {
+    const cart = getCart();
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cartBadge');
+    if (badge) badge.innerText = totalCount;
+}
+
+function addToCart(name, price, image, qtyInputId) {
+    const qtyInput = document.getElementById(qtyInputId);
+    const qty = parseInt(qtyInput ? qtyInput.value : 1) || 1;
+
+    let cart = getCart();
+    const existingIndex = cart.findIndex(item => item.name === name);
+
+    if (existingIndex > -1) {
+        cart[existingIndex].quantity += qty;
+    } else {
+        cart.push({ name, price, image, quantity: qty });
+    }
+
+    saveCart(cart);
+    showToast(`${qty} x ${name} added to cart!`);
+}
+
+// Lightbox Functions
+function openLightbox(src, caption) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightboxCaption').innerText = caption;
+    document.getElementById('lightbox').classList.add('active');
+}
+
+function closeLightbox(e) {
+    document.getElementById('lightbox').classList.remove('active');
+}
+
+function closeLightboxDirect() {
+    document.getElementById('lightbox').classList.remove('active');
+}
+
+// Live Search & Filter
+function filterItems() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const kotas = document.querySelectorAll('.kota-card');
+    const others = document.querySelectorAll('.other-card');
+
+    kotas.forEach(card => {
+        const name = card.getAttribute('data-name');
+        if (name.includes(query)) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    others.forEach(card => {
+        const name = card.getAttribute('data-name');
+        if (name.includes(query)) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+function filterCategory(category, evt) {
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(b => b.classList.remove('active'));
+    evt.currentTarget.classList.add('active');
+
+    const kotas = document.querySelectorAll('.kota-card');
+    const others = document.querySelectorAll('.other-card');
+
+    if (category === 'all') {
+        kotas.forEach(c => c.style.display = '');
+        others.forEach(c => c.style.display = '');
+    } else if (category === 'kotas') {
+        kotas.forEach(c => c.style.display = '');
+        others.forEach(c => c.style.display = 'none');
+    } else if (category === 'sides') {
+        kotas.forEach(c => c.style.display = 'none');
+        others.forEach(c => c.style.display = '');
+    }
+}
+
+function showToast(text) {
+    const toast = document.getElementById('toast');
+    toast.innerText = text;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+</script>
 
 </body>
 </html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Rachel's Kota Place</title>
+    <meta name="description" content="View and manage items in your shopping cart at Rachel's Kota Place. Adjust quantities and proceed to secure checkout or enquiry.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <nav class="nav nav-left">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+        </nav>
+        <a class="logo-wrap" href="index.html" aria-label="Rachel's Kota Place home">
+            <img class="site-logo" src="images/logo.png" alt="Rachel's Kota Place logo">
+        </a>
+        <nav class="nav nav-right">
+            <a href="products.html">Products</a>
+            <a class="active" href="cart.html">Cart <span id="cartBadge" style="background:var(--pink); color:white; padding:2px 8px; border-radius:10px; font-size:0.8rem;">0</span></a>
+            <a href="contact.html">Contact Us</a>
+            <a href="enquiry.html">Enquiry</a>
+        </nav>
+    </div>
+    <div class="header-line"></div>
+</header>
+
+<main>
+    <section class="section yellow-section">
+        <div class="section-inner">
+            <div class="section-heading">
+                <div class="small">Your order bag</div>
+                <h1>Shopping Cart</h1>
+                <p>Review your selected items and quantities before proceeding to checkout.</p>
+            </div>
+
+            <div id="cartContainer">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Toast Notification -->
+<div id="cartToast" class="toast-notification">Cart updated successfully!</div>
+
+<footer>
+    <p>&copy; 2026 Rachel's Kota Place. All Rights Reserved.</p>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderCart();
+    updateNavBadge();
+});
+
+function getCart() {
+    return JSON.parse(localStorage.getItem('rachel_cart')) || [];
+}
+
+function saveCart(cart) {
+    localStorage.setItem('rachel_cart', JSON.stringify(cart));
+    updateNavBadge();
+}
+
+function updateNavBadge() {
+    const cart = getCart();
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cartBadge');
+    if (badge) badge.innerText = totalCount;
+}
+
+function renderCart() {
+    const cart = getCart();
+    const container = document.getElementById('cartContainer');
+
+    if (cart.length === 0) {
+        container.innerHTML = `
+            <div style="background:var(--white); padding:50px; border-radius:var(--radius); text-align:center; box-shadow:var(--shadow);">
+                <h2 style="color:var(--pink); margin-bottom:15px;">Your cart is currently empty</h2>
+                <p style="color:var(--muted); margin-bottom:25px;">Explore our menu and add some delicious kotas and treats to your cart.</p>
+                <a href="products.html" class="btn">Browse Products →</a>
+            </div>
+        `;
+        return;
+    }
+
+    let html = `
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    let grandTotal = 0;
+
+    cart.forEach((item, index) => {
+        const subtotal = item.price * item.quantity;
+        grandTotal += subtotal;
+
+        html += `
+            <tr>
+                <td><img src="${item.image}" alt="${item.name}"></td>
+                <td><strong>${item.name}</strong></td>
+                <td>R${item.price}</td>
+                <td>
+                    <input type="number" min="1" value="${item.quantity}" class="qty-input" onchange="updateQuantity(${index}, this.value)">
+                </td>
+                <td><strong>R${subtotal}</strong></td>
+                <td><button class="remove-btn" onclick="removeItem(${index})">Remove</button></td>
+            </tr>
+        `;
+    });
+
+    html += `
+            </tbody>
+        </table>
+
+        <div class="cart-summary">
+            <h3>Grand Total: <span style="color:var(--pink); font-size:1.8rem;">R${grandTotal}</span></h3>
+            <div style="display:flex; justify-content:flex-end; gap:12px; flex-wrap:wrap;">
+                <button class="btn btn-secondary" onclick="clearCart()">Clear Cart</button>
+                <button class="btn" onclick="proceedToCheckout(${grandTotal})">Proceed to Enquiry Checkout →</button>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = html;
+}
+
+function updateQuantity(index, newQty) {
+    let cart = getCart();
+    const qty = parseInt(newQty);
+    if (qty > 0) {
+        cart[index].quantity = qty;
+        saveCart(cart);
+        renderCart();
+        showToast('Cart quantity updated.');
+    }
+}
+
+function removeItem(index) {
+    let cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    renderCart();
+    showToast('Item removed from cart.');
+}
+
+function clearCart() {
+    localStorage.removeItem('rachel_cart');
+    renderCart();
+    showToast('Cart cleared.');
+}
+
+function proceedToCheckout(total) {
+    const cart = getCart();
+    if (cart.length === 0) return;
+
+    // Format summary message for enquiry
+    let summaryText = "Order Summary from Cart:\n";
+    cart.forEach(item => {
+        summaryText += `- ${item.name} (Qty: ${item.quantity}) @ R${item.price} each = R${item.price * item.quantity}\n`;
+    });
+    summaryText += `Total: R${total}`;
+
+    localStorage.setItem('checkout_summary', summaryText);
+    window.location.href = 'enquiry.html';
+}
+
+function showToast(text) {
+    const toast = document.getElementById('cartToast');
+    toast.innerText = text;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+</script>
+
+</body>
+</html>

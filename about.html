@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Rachel's Kota Place</title>
+    <title>About Us | Rachel's Kota Place Restaurant</title>
+    <meta name="description" content="Learn about Rachel's Kota Place restaurant history, mission, vision, and our delicious kotas at Ga-Molepo.">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,11 +15,12 @@
             <a href="index.html">Home</a>
             <a class="active" href="about.html">About Us</a>
         </nav>
-        <a class="logo-wrap" href="index.html">
+        <a class="logo-wrap" href="index.html" aria-label="Rachel's Kota Place home">
             <img class="site-logo" src="images/logo.png" alt="Rachel's Kota Place logo">
         </a>
         <nav class="nav nav-right">
             <a href="products.html">Products</a>
+            <a href="cart.html">Cart <span id="cartBadge" style="background:var(--pink); color:white; padding:2px 8px; border-radius:10px; font-size:0.8rem;">0</span></a>
             <a href="contact.html">Contact Us</a>
             <a href="enquiry.html">Enquiry</a>
         </nav>
@@ -31,27 +33,67 @@
         <div class="section-inner">
             <div class="section-heading">
                 <div class="small">Get to know us</div>
-                <h2>About Rachel's</h2>
-                <p>Good food, friendly service and affordable prices.</p>
+                <h1>About Rachel's Kota Place</h1>
+                <p>Good food, friendly service, and delicious kotas at Ga-Molepo.</p>
             </div>
 
-            <div class="about-grid">
-                <article class="about-card">
-                    <h2>Who We Are</h2>
-                    <p>Rachel's Kota Place is a local food business that provides delicious and affordable kota meals.</p>
-                    <p>We aim to give our customers good food, friendly service and an enjoyable experience.</p>
-                </article>
-
-                <article class="about-card">
-                    <h2>Our Mission</h2>
-                    <p>Our mission is to provide quality and affordable food while serving our customers with care and respect.</p>
-                </article>
-
-                <article class="about-card">
-                    <h2>Our Vision</h2>
-                    <p>Our vision is to become a trusted local food business known for tasty food, affordable prices and excellent customer service.</p>
-                </article>
+            <!-- Interactive Tabs Navigation -->
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab(event, 'who-we-are')">Who We Are</button>
+                <button class="tab-btn" onclick="switchTab(event, 'mission')">Our Mission</button>
+                <button class="tab-btn" onclick="switchTab(event, 'vision')">Our Vision</button>
+                <button class="tab-btn" onclick="switchTab(event, 'location')">Restaurant Location</button>
             </div>
+
+            <!-- Tab Panels -->
+            <div id="who-we-are" class="tab-panel active">
+                <div class="about-grid">
+                    <article class="about-card">
+                        <h2>Who We Are</h2>
+                        <p>Rachel's Kota Place is a popular local restaurant specializing in delicious, hygienically prepared, and affordable kota meals, crispy chips, milkshakes, and cold drinks.</p>
+                        <p>We aim to give our customers exceptional food, friendly service, and a welcoming dining or takeout experience.</p>
+                    </article>
+                    <article class="about-card">
+                        <h2>Our Core Values</h2>
+                        <p><strong>Quality Ingredients:</strong> Freshly sourced polony, cheese, russians, chips, and freshly baked bread for every kota.</p>
+                        <p><strong>Customer Care:</strong> Serving every patron with a smile, prompt service, and care.</p>
+                        <p><strong>Affordability:</strong> Ensuring great meals remain accessible and budget-friendly for everyone.</p>
+                    </article>
+                    <article class="about-card">
+                        <h2>Our Offerings</h2>
+                        <p>From the classic Princess Kota to the grand Empire Kota, plus sweet milkshakes and ice cream, we cater to all food lovers in the Ga-Molepo community.</p>
+                    </article>
+                </div>
+            </div>
+
+            <div id="mission" class="tab-panel">
+                <div class="about-grid">
+                    <article class="about-card">
+                        <h2>Our Mission</h2>
+                        <p>Our mission is to provide quality, tasty, and affordable food while serving our customers with care and respect in a clean restaurant environment.</p>
+                    </article>
+                </div>
+            </div>
+
+            <div id="vision" class="tab-panel">
+                <div class="about-grid">
+                    <article class="about-card">
+                        <h2>Our Vision</h2>
+                        <p>Our vision is to become the leading trusted local restaurant and food brand known for mouthwatering kotas, affordable prices, and excellent customer service.</p>
+                    </article>
+                </div>
+            </div>
+
+            <div id="location" class="tab-panel">
+                <div class="about-grid">
+                    <article class="about-card">
+                        <h2>Ga-Molepo Restaurant Location</h2>
+                        <p>Our main restaurant is proudly located in <strong>Ga-Molepo, Polokwane, 0732</strong>.</p>
+                        <p>We welcome walk-in customers daily for sit-down or takeaway orders, as well as party and event catering inquiries.</p>
+                    </article>
+                </div>
+            </div>
+
         </div>
     </section>
 </main>
@@ -59,6 +101,26 @@
 <footer>
     <p>&copy; 2026 Rachel's Kota Place. All Rights Reserved.</p>
 </footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const cart = JSON.parse(localStorage.getItem('rachel_cart')) || [];
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cartBadge');
+    if (badge) badge.innerText = totalCount;
+});
+
+function switchTab(evt, tabId) {
+    const panels = document.querySelectorAll('.tab-panel');
+    panels.forEach(p => p.classList.remove('active'));
+
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(b => b.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+}
+</script>
 
 </body>
 </html>

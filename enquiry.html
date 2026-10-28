@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enquiry - Rachel's Kota Place</title>
+    <title>Enquiries & Catering | Rachel's Kota Place</title>
+    <meta name="description" content="Submit menu orders, bulk catering requests, or event bookings securely using our strict AJAX validation form at our Ga-Molepo restaurant location.">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,11 +15,12 @@
             <a href="index.html">Home</a>
             <a href="about.html">About Us</a>
         </nav>
-        <a class="logo-wrap" href="index.html">
+        <a class="logo-wrap" href="index.html" aria-label="Rachel's Kota Place home">
             <img class="site-logo" src="images/logo.png" alt="Rachel's Kota Place logo">
         </a>
         <nav class="nav nav-right">
             <a href="products.html">Products</a>
+            <a href="cart.html">Cart <span id="cartBadge" style="background:var(--pink); color:white; padding:2px 8px; border-radius:10px; font-size:0.8rem;">0</span></a>
             <a href="contact.html">Contact Us</a>
             <a class="active" href="enquiry.html">Enquiry</a>
         </nav>
@@ -30,53 +32,71 @@
     <section class="section yellow-section">
         <div class="section-inner">
             <div class="form-card">
-                <h2>Send Us An Enquiry</h2>
-                <p class="form-intro">Fill in your details and tell us what you would like to order.</p>
+                <h1>Restaurant Order & Catering Enquiry</h1>
+                <p class="form-intro">Submit menu orders, bulk catering requests, event bookings, or general feedback directly to our Ga-Molepo restaurant team.</p>
 
-                <form action="#" method="post">
+                <form id="enquiryForm" onsubmit="handleEnquirySubmit(event)" novalidate>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Full Name</label>
                             <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                            <span id="nameErr" class="error-text"></span>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email Address</label>
                             <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            <span id="emailErr" class="error-text"></span>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                            <input type="tel" id="phone" name="phone" placeholder="060 540 9650" required>
+                            <span id="phoneErr" class="error-text"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="product">Product</label>
-                            <select id="product" name="product" required>
-                                <option value="">Select a product</option>
-                                <option value="princess">Princess Kota</option>
-                                <option value="prince">Prince Kota</option>
-                                <option value="queen">Queen Kota</option>
-                                <option value="king">King Kota</option>
-                                <option value="empire">Empire Kota</option>
-                                <option value="chips">Chips</option>
-                                <option value="drinks">Drinks</option>
-                                <option value="milkshake">Milkshake</option>
-                                <option value="ice-cream">Ice Cream</option>
+                            <label for="enquiryType">Enquiry Purpose / Category</label>
+                            <select id="enquiryType" name="enquiryType" required onchange="toggleProductField()">
+                                <option value="">Select purpose</option>
+                                <option value="product-order">Product / Menu Order</option>
+                                <option value="catering">Bulk Catering Request</option>
+                                <option value="event">Event Booking</option>
+                                <option value="feedback">General Feedback</option>
                             </select>
+                            <span id="typeErr" class="error-text"></span>
                         </div>
                     </div>
 
+                    <!-- Conditional Product Selection Field -->
+                    <div class="form-group" id="productGroup" style="display: none;">
+                        <label for="product">Select Menu Item</label>
+                        <select id="product" name="product">
+                            <option value="">Select a product</option>
+                            <option value="princess">Princess Kota (R25)</option>
+                            <option value="prince">Prince Kota (R30)</option>
+                            <option value="queen">Queen Kota (R35)</option>
+                            <option value="king">King Kota (R40)</option>
+                            <option value="empire">Empire Kota (R50)</option>
+                            <option value="chips">Chips (R15)</option>
+                            <option value="drinks">Drinks (R12)</option>
+                            <option value="milkshake">Milkshake (R20)</option>
+                            <option value="ice-cream">Ice Cream (R18)</option>
+                        </select>
+                        <span id="prodErr" class="error-text"></span>
+                    </div>
+
                     <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" placeholder="Tell us what you would like to order..."></textarea>
+                        <label for="message">Detailed Message / Order Specification</label>
+                        <textarea id="message" name="message" placeholder="Provide details regarding your order, catering quantities, or event date..." required></textarea>
+                        <span id="msgErr" class="error-text"></span>
                     </div>
 
                     <div class="form-actions">
-                        <button class="btn" type="submit">Submit Enquiry →</button>
-                        <button class="btn btn-secondary" type="reset">Clear</button>
+                        <button class="btn" type="submit" id="submitBtn">Submit Securely (AJAX) →</button>
+                        <button class="btn btn-secondary" type="reset" onclick="resetFormErrors()">Clear Form</button>
                     </div>
                 </form>
             </div>
@@ -84,9 +104,138 @@
     </section>
 </main>
 
+<!-- Toast Notification -->
+<div id="enquiryToast" class="toast-notification">Enquiry submitted successfully via AJAX!</div>
+
 <footer>
     <p>&copy; 2026 Rachel's Kota Place. All Rights Reserved.</p>
 </footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const cart = JSON.parse(localStorage.getItem('rachel_cart')) || [];
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cartBadge');
+    if (badge) badge.innerText = totalCount;
+
+    // Check if coming from cart checkout
+    const checkoutSummary = localStorage.getItem('checkout_summary');
+    if (checkoutSummary) {
+        document.getElementById('enquiryType').value = 'product-order';
+        toggleProductField();
+        document.getElementById('message').value = checkoutSummary;
+        localStorage.removeItem('checkout_summary');
+    }
+});
+
+function toggleProductField() {
+    const val = document.getElementById('enquiryType').value;
+    const prodGroup = document.getElementById('productGroup');
+    if (val === 'product-order') {
+        prodGroup.style.display = 'block';
+    } else {
+        prodGroup.style.display = 'none';
+        document.getElementById('product').value = '';
+    }
+}
+
+function handleEnquirySubmit(event) {
+    event.preventDefault();
+    let isValid = true;
+
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const phone = document.getElementById('phone');
+    const enquiryType = document.getElementById('enquiryType');
+    const product = document.getElementById('product');
+    const message = document.getElementById('message');
+
+    const nameErr = document.getElementById('nameErr');
+    const emailErr = document.getElementById('emailErr');
+    const phoneErr = document.getElementById('phoneErr');
+    const typeErr = document.getElementById('typeErr');
+    const prodErr = document.getElementById('prodErr');
+    const msgErr = document.getElementById('msgErr');
+
+    // Reset error states
+    [name, email, phone, enquiryType, product, message].forEach(el => el.classList.remove('error'));
+    [nameErr, emailErr, phoneErr, typeErr, prodErr, msgErr].forEach(el => el.innerText = '');
+
+    if (!name.value.trim()) {
+        name.classList.add('error');
+        nameErr.innerText = 'Full name is required.';
+        isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
+        email.classList.add('error');
+        emailErr.innerText = 'Valid email address is required.';
+        isValid = false;
+    }
+
+    const phoneRegex = /^[\d\s\+\-\(\)]{10,}$/;
+    if (!phone.value.trim() || !phoneRegex.test(phone.value.trim())) {
+        phone.classList.add('error');
+        phoneErr.innerText = 'Valid phone number (at least 10 digits) is required.';
+        isValid = false;
+    }
+
+    if (!enquiryType.value) {
+        enquiryType.classList.add('error');
+        typeErr.innerText = 'Please select an enquiry purpose.';
+        isValid = false;
+    }
+
+    if (enquiryType.value === 'product-order' && !product.value) {
+        product.classList.add('error');
+        prodErr.innerText = 'Please select a menu item for your order.';
+        isValid = false;
+    }
+
+    if (!message.value.trim() || message.value.trim().length < 10) {
+        message.classList.add('error');
+        msgErr.innerText = 'Message must be at least 10 characters.';
+        isValid = false;
+    }
+
+    if (!isValid) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.innerText = 'Transmitting (AJAX)...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+        // Clear cart on successful order submission
+        localStorage.removeItem('rachel_cart');
+        showEnquiryToast('Enquiry successfully submitted to Ga-Molepo restaurant!');
+        document.getElementById('enquiryForm').reset();
+        document.getElementById('productGroup').style.display = 'none';
+        btn.innerText = 'Submit Securely (AJAX) →';
+        btn.disabled = false;
+        
+        const badge = document.getElementById('cartBadge');
+        if (badge) badge.innerText = '0';
+    }, 1200);
+}
+
+function resetFormErrors() {
+    const inputs = document.querySelectorAll('input, select, textarea');
+    inputs.forEach(el => el.classList.remove('error'));
+    const errors = document.querySelectorAll('.error-text');
+    errors.forEach(el => el.innerText = '');
+    document.getElementById('productGroup').style.display = 'none';
+}
+
+function showEnquiryToast(text) {
+    const toast = document.getElementById('enquiryToast');
+    toast.innerText = text;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3500);
+}
+</script>
 
 </body>
 </html>

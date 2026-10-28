@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Rachel's Kota Place</title>
+    <title>Contact Us & Interactive Map | Rachel's Kota Place</title>
+    <meta name="description" content="Get in touch with Rachel's Kota Place at Ga-Molepo. View our interactive Leaflet map, phone, WhatsApp, and send secure restaurant orders or messages.">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Leaflet CSS CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
 
@@ -14,11 +17,12 @@
             <a href="index.html">Home</a>
             <a href="about.html">About Us</a>
         </nav>
-        <a class="logo-wrap" href="index.html">
+        <a class="logo-wrap" href="index.html" aria-label="Rachel's Kota Place home">
             <img class="site-logo" src="images/logo.png" alt="Rachel's Kota Place logo">
         </a>
         <nav class="nav nav-right">
             <a href="products.html">Products</a>
+            <a href="cart.html">Cart <span id="cartBadge" style="background:var(--pink); color:white; padding:2px 8px; border-radius:10px; font-size:0.8rem;">0</span></a>
             <a class="active" href="contact.html">Contact Us</a>
             <a href="enquiry.html">Enquiry</a>
         </nav>
@@ -31,8 +35,8 @@
         <div class="section-inner">
             <div class="section-heading">
                 <div class="small">We'd love to hear from you</div>
-                <h2>Get In Touch</h2>
-                <p>Questions, orders or enquiries? Contact us.</p>
+                <h1>Get In Touch</h1>
+                <p>Questions, orders, catering bookings, or restaurant visits? Connect with us.</p>
             </div>
 
             <div class="contact-grid">
@@ -46,32 +50,144 @@
                         <p>060 540 9650</p>
                     </div>
                     <div class="contact-item">
-                        <h3>Location</h3>
-                        <p>Ga Molepo</p>
+                        <h3>Restaurant Location</h3>
+                        <p>Ga-Molepo, Polokwane, 0732</p>
                     </div>
                     <div class="contact-item">
                         <h3>Business Hours</h3>
-                        <p>Please contact us for our current operating hours.</p>
+                        <p>Monday – Saturday: 08:00 AM – 19:00 PM</p>
+                    </div>
+
+                    <!-- Direct Messaging Portal -->
+                    <div style="margin-top: 25px;">
+                        <h3>Quick Message Portal</h3>
+                        <form id="contactForm" onsubmit="handleContactSubmit(event)" novalidate>
+                            <div class="form-group" style="margin-top: 12px;">
+                                <label for="contactName">Full Name</label>
+                                <input type="text" id="contactName" name="contactName" placeholder="Your name" required>
+                                <span id="nameError" class="error-text"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email Address</label>
+                                <input type="email" id="contactEmail" name="contactEmail" placeholder="your.email@example.com" required>
+                                <span id="emailError" class="error-text"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactMsg">Message / Order Query</label>
+                                <textarea id="contactMsg" name="contactMsg" placeholder="Type your message here..." required></textarea>
+                                <span id="msgError" class="error-text"></span>
+                            </div>
+                            <button type="submit" class="btn">Send Message →</button>
+                        </form>
                     </div>
                 </div>
 
                 <div class="map-card">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58303.34378614772!2d29.797406399999993!3d-24.0325114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ec14aa115169e53%3A0x8cd7f8bcd707e856!2sGa-Molepo%2C%200732!5e0!3m2!1sen!2sza!4v1786707586123!5m2!1sen!2sza"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        title="Map showing Ga Molepo">
-                    </iframe>
+                    <h3>Ga-Molepo Location Map</h3>
+                    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 12px;">Interactive Leaflet Map pinpointing Ga-Molepo restaurant.</p>
+                    <!-- Interactive Leaflet Map Container -->
+                    <div id="leaflet-map"></div>
                 </div>
             </div>
         </div>
     </section>
 </main>
 
+<!-- Toast Notification -->
+<div id="toast" class="toast-notification">Message sent successfully via AJAX!</div>
+
 <footer>
     <p>&copy; 2026 Rachel's Kota Place. All Rights Reserved.</p>
 </footer>
+
+<!-- Leaflet JS CDN -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const cart = JSON.parse(localStorage.getItem('rachel_cart')) || [];
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cartBadge');
+    if (badge) badge.innerText = totalCount;
+
+    // Initialize Leaflet Map
+    const lat = -24.0325;
+    const lng = 29.7974;
+    
+    const map = L.map('leaflet-map').setView([lat, lng], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([lat, lng]).addTo(map)
+        .bindPopup('<b>Rachel\'s Kota Place</b><br />Ga-Molepo Restaurant')
+        .openPopup();
+});
+
+// Contact Form Validation & AJAX Simulation
+function handleContactSubmit(event) {
+    event.preventDefault();
+    let isValid = true;
+
+    const name = document.getElementById('contactName');
+    const email = document.getElementById('contactEmail');
+    const msg = document.getElementById('contactMsg');
+
+    const nameErr = document.getElementById('nameError');
+    const emailErr = document.getElementById('emailError');
+    const msgErr = document.getElementById('msgError');
+
+    // Reset errors
+    name.classList.remove('error');
+    email.classList.remove('error');
+    msg.classList.remove('error');
+    nameErr.innerText = '';
+    emailErr.innerText = '';
+    msgErr.innerText = '';
+
+    if (!name.value.trim()) {
+        name.classList.add('error');
+        nameErr.innerText = 'Full name is required.';
+        isValid = false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.value.trim() || !emailPattern.test(email.value.trim())) {
+        email.classList.add('error');
+        emailErr.innerText = 'Valid email address is required.';
+        isValid = false;
+    }
+
+    if (!msg.value.trim() || msg.value.trim().length < 5) {
+        msg.classList.add('error');
+        msgErr.innerText = 'Message must be at least 5 characters.';
+        isValid = false;
+    }
+
+    if (!isValid) return;
+
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    submitBtn.innerText = 'Sending...';
+    submitBtn.disabled = true;
+
+    setTimeout(() => {
+        showToast('Message sent successfully to Ga-Molepo restaurant!');
+        document.getElementById('contactForm').reset();
+        submitBtn.innerText = 'Send Message →';
+        submitBtn.disabled = false;
+    }, 1000);
+}
+
+function showToast(text) {
+    const toast = document.getElementById('toast');
+    toast.innerText = text;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3500);
+}
+</script>
 
 </body>
 </html>

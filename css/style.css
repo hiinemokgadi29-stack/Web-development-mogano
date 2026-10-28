@@ -5,9 +5,9 @@
    ========================================= */
 
 :root {
-    --pink: #f72585;
-    --pink-dark: #d9156c;
-    --pink-soft: #fff0f6;
+    --pink: #f29bb5;
+    --pink-dark: #d47a96;
+    --pink-soft: #fff4f7;
     --yellow: #ffd200;
     --yellow-soft: #fff9df;
     --white: #ffffff;
@@ -849,3 +849,287 @@ footer p {
         height: 135px;
     }
 }
+
+/* =========================
+   ADVANCED UI & INTERACTIVITY STYLES
+   ========================= */
+
+/* Lightbox */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-container {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    text-align: center;
+}
+
+.lightbox-container img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 12px;
+    border: 4px solid var(--white);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.lightbox-caption {
+    color: var(--white);
+    margin-top: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: var(--pink);
+    color: var(--white);
+    border: none;
+    font-size: 1.5rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.lightbox-close:hover {
+    background: var(--yellow);
+    color: var(--dark);
+}
+
+/* Interactive Tabs */
+.tabs-nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    background: var(--white);
+    border: 2px solid var(--pink);
+    color: var(--pink);
+    padding: 10px 22px;
+    font-weight: 700;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.tab-btn.active, .tab-btn:hover {
+    background: var(--pink);
+    color: var(--white);
+    box-shadow: 0 6px 15px rgba(247, 37, 133, 0.2);
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Product Search / Filter Bar */
+.filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-input {
+    max-width: 320px;
+    padding: 10px 18px;
+    border-radius: 25px;
+    border: 2px solid var(--pink);
+    background: var(--white);
+}
+
+.filter-btn {
+    background: var(--white);
+    border: 2px solid var(--dark);
+    color: var(--dark);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: var(--dark);
+    color: var(--white);
+}
+
+/* Leaflet Map */
+#leaflet-map {
+    width: 100%;
+    height: 390px;
+    border-radius: 16px;
+    z-index: 1;
+}
+
+/* Validation & AJAX Toast */
+.error-text {
+    color: var(--pink-dark);
+    font-size: 0.82rem;
+    margin-top: 4px;
+    display: block;
+    font-weight: 600;
+}
+
+input.error, select.error, textarea.error {
+    border-color: var(--pink-dark);
+    background: #fff0f4;
+}
+
+.toast-notification {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: var(--pink);
+    color: var(--white);
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    font-weight: 700;
+    z-index: 1100;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   CART & ADD-TO-CART STYLES
+   ========================= */
+
+.product-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px 15px;
+}
+
+.qty-input {
+    width: 60px;
+    padding: 8px;
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.add-cart-btn {
+    background: var(--pink);
+    color: var(--white);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.add-cart-btn:hover {
+    background: var(--yellow);
+    color: var(--dark);
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.cart-table th, .cart-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+
+.cart-table th {
+    background: var(--pink);
+    color: var(--white);
+    font-weight: 750;
+}
+
+.cart-table img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cart-summary {
+    background: var(--white);
+    padding: 25px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: right;
+}
+
+.cart-summary h3 {
+    margin-bottom: 15px;
+    color: var(--dark);
+}
+
+.remove-btn {
+    background: var(--pink-dark);
+    color: var(--white);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.remove-btn:hover {
+    background: #a80f50;
+}
+
+
