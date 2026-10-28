@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Rachel's Kota Place Restaurant</title>
-    <meta name="description" content="Learn about Rachel's Kota Place restaurant history, mission, vision, and our delicious kotas at Ga-Molepo.">
+    <title>About Us & FAQ | Rachel's Kota Place Restaurant</title>
+    <meta name="description" content="Learn about Rachel's Kota Place restaurant history, mission, vision, FAQ, and our delicious kotas at Ga-Molepo.">
+    <meta property="og:title" content="About Us | Rachel's Kota Place">
+    <meta property="og:description" content="Discover our story, mission, vision, and FAQs at Rachel's Kota Place in Ga-Molepo.">
+    <meta property="og:image" content="images/logo.png">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -94,6 +99,45 @@
                 </div>
             </div>
 
+            <!-- Interactive FAQ Accordion Section -->
+            <div style="margin-top: 60px;">
+                <div class="section-heading" style="margin-bottom: 30px;">
+                    <div class="small">Got Questions?</div>
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Click on any question below to view our answers.</p>
+                </div>
+
+                <div class="accordion-container">
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">What are your operating hours?</button>
+                        <div class="accordion-content">
+                            <p>We are open Monday through Saturday from 08:00 AM to 19:00 PM. We welcome walk-in orders, takeaways, and advance bookings.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">Where is Rachel's Kota Place located?</button>
+                        <div class="accordion-content">
+                            <p>Our restaurant is proudly located in Ga-Molepo, Polokwane, 0732. You can check our exact pin on the Contact Us page interactive map.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">Do you cater for events and parties?</button>
+                        <div class="accordion-content">
+                            <p>Yes! We offer bulk catering and event bookings. You can submit your requirements through our Enquiry portal or contact us directly via WhatsApp.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">How can I place an order online?</button>
+                        <div class="accordion-content">
+                            <p>You can browse our menu on the Products page, add items with custom quantities to your cart bag, and proceed to our Enquiry checkout page to send your order.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 </main>
@@ -119,6 +163,17 @@ function switchTab(evt, tabId) {
 
     document.getElementById(tabId).classList.add('active');
     evt.currentTarget.classList.add('active');
+}
+
+function toggleAccordion(btn) {
+    const item = btn.parentElement;
+    const isActive = item.classList.contains('active');
+    
+    document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('active'));
+
+    if (!isActive) {
+        item.classList.add('active');
+    }
 }
 </script>
 
